@@ -3,7 +3,7 @@ package com.rbuxton.dingeoneer.main.desktop;
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.rbuxton.dingeoneer.main.Main;
+import com.rbuxton.dugeoneer.main.Main;
 
 /** Launches the desktop (LWJGL) application. */
 public class DesktopLauncher {
