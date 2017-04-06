@@ -2,16 +2,20 @@ package com.rbuxton.dungeoneer.map;
 
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.rbuxton.dungeoneer.misc.Constants;
+
 public class WorldMap {
-	private Room[][] map;
+	private Map map;
+	private Vector2 boss;
+	private int width = 12;
+	private int height = 12;
 
 	public WorldMap(){
-		map = new Room[64][64];
-		for(int i = 0; 1 < map.length; i++){
-			for(int j = 0; j < map[0].length; j++){
-				map[i][j] = new Room();
-			}
-		}
+		map = new Map(width, height);
 	}
 	
 	public void generate(){
@@ -21,15 +25,81 @@ public class WorldMap {
 		 *  -Path every room to that room OR choose a couple and path those then path all rooms to other rooms
 		 *   somehow
 		 */
+		map = new Map(width, height);
 		Random gen = new Random();
-		map[24 + gen.nextInt(16)][24 + gen.nextInt(16)].setBossRoom(true);
+		boss = new Vector2(gen.nextInt(width), gen.nextInt(height));
+		map.get(boss.x, boss.y).setBossRoom(true);
 		
-		int numConnect = gen.nextInt(16); //Connect 16 random rooms to the magic room
-		for(int i = 0; i < numConnect; i ++){
-			int x = gen.nextInt(64);
-			int y = gen.nextInt(64);
-			
+		int numConnect = 4 + gen.nextInt(16); //Connect 16 random rooms to the magic room
+		Vector2 r = new Vector2(0,0);
+		for(int i = 0; i < numConnect; i++){
+			r.set(gen.nextInt(map.getWidth()), gen.nextInt(map.getHeight()));
+			path(r, boss);
 		}
+	}
+	
+	public void path(Vector2 cur, Vector2 tar){
+		Gdx.app.log(Constants.debugFlag, "start (" + cur.x + "," + cur.y + ") end (" + tar.x + "," + tar.y + ")");
 		
+		int count = 0;
+		while(cur.x != tar.x || cur.y != tar.y){
+			if(cur.x != tar.x){
+				if(cur.x > tar.x){
+					map.get(cur.x, cur.y).setRightHall(true);
+					cur.set(cur.x - 1, cur.y);
+					map.get(cur.x, cur.y).setLeftHall(true);
+				}
+				if(cur.x < tar.x){
+					map.get(cur.x, cur.y).setLeftHall(true);
+					cur.set(cur.x + 1, cur.y);
+					map.get(cur.x, cur.y).setRightHall(true);
+				}
+			}
+			if(cur.y  != tar.y){
+				if(cur.y > tar.y){
+					map.get(cur.x, cur.y).setDownHall(true);
+					cur.set(cur.x, cur.y - 1);
+					map.get(cur.x, cur.y).setUpHall(true);
+				}
+				if(cur.y < tar.y){
+					map.get(cur.x, cur.y).setUpHall(true);
+					cur.set(cur.x, cur.y + 1);
+					map.get(cur.x, cur.y).setDownHall(true);
+				}
+			}
+			count++;
+		}
+		Gdx.app.log(Constants.debugFlag, "Touched " + count + " rooms");
+	}
+	
+	public void renderMap(int sx, int sy, SpriteBatch batch){
+		Texture room = new Texture("minimap/mm-none.png");
+		Texture hall = new Texture("minimap/mm-hall.png");
+		Texture boss = new Texture("minimap/mm-boss.png");
+		int cx = sx;
+		int cy = sy;
+		
+		for(int y = 0; y < map.getHeight(); y++){
+			for(int x = 0; x < map.getWidth(); x++){
+				if(map.get(x, y).isConnected()){
+					if(map.get(x, y).isBossRoom()) batch.draw(boss, cx, cy);
+					else batch.draw(room, cx, cy);
+				}
+				
+				
+				if(map.get(x, y).isUpHall()) batch.draw(hall, cx + 2, cy + 4);
+				if(map.get(x, y).isDownHall()) batch.draw(hall, cx + 2, cy);
+				
+				/*
+				 * TODO: These two are toggeled, find out if this is me being dumb or if theyre just
+				 * 		legit swapped and its going to cause major headaches later
+				 */
+				if(map.get(x, y).isRightHall()) batch.draw(hall, cx, cy + 2);
+				if(map.get(x, y).isLeftHall()) batch.draw(hall, cx + 4, cy+2);
+				cx = cx + 5;
+			}
+			cx = sx;
+			cy = cy + 5;
+		}
 	}
 }
