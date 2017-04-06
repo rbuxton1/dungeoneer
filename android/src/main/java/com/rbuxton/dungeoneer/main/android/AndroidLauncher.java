@@ -1,4 +1,4 @@
-package com.rbuxton.dingeoneer.main.android;
+package com.rbuxton.dungeoneer.main.android;
 
 import android.os.Bundle;
 
