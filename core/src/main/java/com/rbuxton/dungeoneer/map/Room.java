@@ -8,10 +8,6 @@ public class Room {
 	 * TODO: A lot
 	 */
 	public Room(){
-		u = false;
-		d = false; 
-		l = false;
-		r = false;
 	}
 	
 	public boolean isUpHall(){ return u; }

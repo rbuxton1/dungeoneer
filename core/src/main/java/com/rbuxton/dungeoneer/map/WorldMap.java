@@ -11,8 +11,8 @@ import com.rbuxton.dungeoneer.misc.Constants;
 public class WorldMap {
 	private Map map;
 	private Vector2 boss;
-	private int width = 12;
-	private int height = 12;
+	private int width = 8;
+	private int height = 8;
 
 	public WorldMap(){
 		map = new Map(width, height);
@@ -30,7 +30,8 @@ public class WorldMap {
 		boss = new Vector2(gen.nextInt(width), gen.nextInt(height));
 		map.get(boss.x, boss.y).setBossRoom(true);
 		
-		int numConnect = 4 + gen.nextInt(16); //Connect 16 random rooms to the magic room
+		int numConnect = 4 + gen.nextInt(10); //Connect 16 random rooms to the magic room
+		Gdx.app.log(Constants.debugFlag, "connecters: " + numConnect);
 		Vector2 r = new Vector2(0,0);
 		for(int i = 0; i < numConnect; i++){
 			r.set(gen.nextInt(map.getWidth()), gen.nextInt(map.getHeight()));
@@ -39,7 +40,6 @@ public class WorldMap {
 	}
 	
 	public void path(Vector2 cur, Vector2 tar){
-		Gdx.app.log(Constants.debugFlag, "start (" + cur.x + "," + cur.y + ") end (" + tar.x + "," + tar.y + ")");
 		
 		int count = 0;
 		while(cur.x != tar.x || cur.y != tar.y){
@@ -69,7 +69,6 @@ public class WorldMap {
 			}
 			count++;
 		}
-		Gdx.app.log(Constants.debugFlag, "Touched " + count + " rooms");
 	}
 	
 	public void renderMap(int sx, int sy, SpriteBatch batch){
