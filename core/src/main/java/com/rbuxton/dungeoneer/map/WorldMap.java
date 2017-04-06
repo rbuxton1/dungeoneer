@@ -71,10 +71,13 @@ public class WorldMap {
 		}
 	}
 	
-	public void renderMap(int sx, int sy, SpriteBatch batch){
+	public void renderMiniMap(int sx, int sy, SpriteBatch batch){
 		Texture room = new Texture("minimap/mm-none.png");
 		Texture hall = new Texture("minimap/mm-hall.png");
 		Texture boss = new Texture("minimap/mm-boss.png");
+		Texture bg = new Texture("minimap/mm-bg.png");
+		
+		batch.draw(bg, sx, sy);
 		int cx = sx;
 		int cy = sy;
 		
@@ -86,19 +89,19 @@ public class WorldMap {
 				}
 				
 				
-				if(map.get(x, y).isUpHall()) batch.draw(hall, cx + 2, cy + 4);
-				if(map.get(x, y).isDownHall()) batch.draw(hall, cx + 2, cy);
+				if(map.get(x, y).isUpHall()) batch.draw(hall, cx + 6, cy + 12);
+				if(map.get(x, y).isDownHall()) batch.draw(hall, cx + 6, cy);
 				
 				/*
 				 * TODO: These two are toggeled, find out if this is me being dumb or if theyre just
 				 * 		legit swapped and its going to cause major headaches later
 				 */
-				if(map.get(x, y).isRightHall()) batch.draw(hall, cx, cy + 2);
-				if(map.get(x, y).isLeftHall()) batch.draw(hall, cx + 4, cy+2);
-				cx = cx + 5;
+				if(map.get(x, y).isRightHall()) batch.draw(hall, cx, cy + 6);
+				if(map.get(x, y).isLeftHall()) batch.draw(hall, cx + 12, cy+6);
+				cx = cx + 15;
 			}
 			cx = sx;
-			cy = cy + 5;
+			cy = cy + 15;
 		}
 	}
 }

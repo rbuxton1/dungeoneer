@@ -12,6 +12,8 @@ public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration configuration = new IOSApplicationConfiguration();
+        configuration.orientationLandscape = true;
+        configuration.orientationPortrait = false;
         return new IOSApplication(new Main(), configuration);
     }
 
