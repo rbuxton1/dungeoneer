@@ -1,4 +1,4 @@
-package com.rbuxton.dingeoneer.main.desktop;
+package com.rbuxton.dungeoneer.main.desktop;
 
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;

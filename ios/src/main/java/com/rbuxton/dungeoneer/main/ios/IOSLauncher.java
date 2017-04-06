@@ -1,4 +1,4 @@
-package com.rbuxton.dingeoneer.main.ios;
+package com.rbuxton.dungeoneer.main.ios;
 
 import org.robovm.apple.foundation.NSAutoreleasePool;
 import org.robovm.apple.uikit.UIApplication;
