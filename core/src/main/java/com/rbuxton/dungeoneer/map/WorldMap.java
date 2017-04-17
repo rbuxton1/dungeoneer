@@ -13,6 +13,7 @@ public class WorldMap {
 	private Vector2 boss;
 	private int width = 8;
 	private int height = 8;
+	private Vector2 activeRoom;
 
 	public WorldMap(){
 		map = new Map(width, height);
@@ -35,6 +36,9 @@ public class WorldMap {
 		Vector2 r = new Vector2(0,0);
 		for(int i = 0; i < numConnect; i++){
 			r.set(gen.nextInt(map.getWidth()), gen.nextInt(map.getHeight()));
+			if(gen.nextBoolean() && activeRoom != null){
+				activeRoom = r;
+			}
 			path(r, boss);
 		}
 	}
@@ -76,6 +80,7 @@ public class WorldMap {
 		Texture hall = new Texture("minimap/mm-hall.png");
 		Texture boss = new Texture("minimap/mm-boss.png");
 		Texture bg = new Texture("minimap/mm-bg.png");
+		Texture here = new Texture("minimap/mm-loc.png");
 		
 		batch.draw(bg, sx, sy);
 		int cx = sx;
@@ -86,6 +91,8 @@ public class WorldMap {
 				if(map.get(x, y).isConnected()){
 					if(map.get(x, y).isBossRoom()) batch.draw(boss, cx, cy);
 					else batch.draw(room, cx, cy);
+					
+					if(activeRoom != null) if(x == activeRoom.x && y == activeRoom.y) batch.draw(here, cx, cy);
 				}
 				
 				

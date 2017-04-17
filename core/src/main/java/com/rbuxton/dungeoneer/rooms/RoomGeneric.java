@@ -3,7 +3,7 @@ package com.rbuxton.dungeoneer.rooms;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.rbuxton.dugeoneer.main.Main;
+import com.rbuxton.dungeoneer.main.Main;
 
 public class RoomGeneric implements Screen{
 	private Main main;

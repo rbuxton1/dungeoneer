@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.rbuxton.dugeoneer.main.Main;
+import com.rbuxton.dungeoneer.main.Main;
 
 /** Launches the Android application. */
 public class AndroidLauncher extends AndroidApplication {

@@ -1,4 +1,4 @@
-package com.rbuxton.dugeoneer.main;
+package com.rbuxton.dungeoneer.main;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
