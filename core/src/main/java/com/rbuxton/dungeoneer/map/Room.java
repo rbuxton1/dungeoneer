@@ -3,11 +3,13 @@ package com.rbuxton.dungeoneer.map;
 public class Room {
 	private boolean u,d,l,r;
 	private boolean isBossRoom =false;
+	private RoomMap rMap;
 	
 	/*
 	 * TODO: A lot
 	 */
 	public Room(){
+		rMap = new RoomMap();
 	}
 	
 	public boolean isUpHall(){ return u; }

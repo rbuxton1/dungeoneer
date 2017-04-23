@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.rbuxton.dungeoneer.map.WorldMap;
+import com.rbuxton.dungeoneer.misc.Constants;
 import com.rbuxton.dungeoneer.rooms.RoomGeneric;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -25,7 +26,7 @@ public class Main extends Game {
     @Override
     public void create() {
     	cam = new OrthographicCamera();
-		port = new FillViewport(640, 360, cam);
+		port = new FillViewport(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, cam);
 		cam.setToOrtho(true);
 		port.apply();
 		cam.position.set(cam.viewportWidth/2.0f, cam.viewportHeight/2.0f, 0f);
