@@ -27,14 +27,12 @@ public class Main extends Game {
     public void create() {
     	cam = new OrthographicCamera();
 		port = new FillViewport(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, cam);
-		cam.setToOrtho(true);
+		cam.setToOrtho(false);
 		port.apply();
 		cam.position.set(cam.viewportWidth/2.0f, cam.viewportHeight/2.0f, 0f);
     	
         batch = new SpriteBatch();
-        wm = new WorldMap();
-        wm.generate();
-        setScreen(new RoomGeneric(this));
+        setScreen(new GameScreen(this));
     }
 
     @Override
@@ -45,7 +43,6 @@ public class Main extends Game {
         super.render();
         
         if(Gdx.input.isKeyJustPressed(Keys.F5) || Gdx.input.justTouched()){
-        	wm.generate();
         }
     }
 

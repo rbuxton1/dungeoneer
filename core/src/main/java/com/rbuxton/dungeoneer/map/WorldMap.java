@@ -36,11 +36,22 @@ public class WorldMap {
 		Vector2 r = new Vector2(0,0);
 		for(int i = 0; i < numConnect; i++){
 			r.set(gen.nextInt(map.getWidth()), gen.nextInt(map.getHeight()));
-			if(gen.nextBoolean() && activeRoom != null){
+			if(activeRoom == null){
+				map.get(r.x, r.y).setActiveRoom(true);
 				activeRoom = r;
 			}
 			path(r, boss);
 		}
+	}
+	
+	public Vector2 getActiveRoom(){
+		Vector2 a = new Vector2(0, 0);
+		for(int y = 0; y < map.getHeight(); y++){
+			for(int x = 0; x < map.getWidth(); x++){
+				if(map.get(x, y).isActive()) a.set(x, y);
+			}
+		}
+		return a;
 	}
 	
 	public void path(Vector2 cur, Vector2 tar){
@@ -74,13 +85,13 @@ public class WorldMap {
 			count++;
 		}
 	}
-	
+
 	public void renderMiniMap(int sx, int sy, SpriteBatch batch){
 		Texture room = new Texture("minimap/mm-none.png");
 		Texture hall = new Texture("minimap/mm-hall.png");
 		Texture boss = new Texture("minimap/mm-boss.png");
 		Texture bg = new Texture("minimap/mm-bg.png");
-		Texture here = new Texture("minimap/mm-loc.png");
+		Texture here = new Texture("minimap/mm-activ.png");
 		
 		batch.draw(bg, sx, sy);
 		int cx = sx;
@@ -92,7 +103,7 @@ public class WorldMap {
 					if(map.get(x, y).isBossRoom()) batch.draw(boss, cx, cy);
 					else batch.draw(room, cx, cy);
 					
-					if(activeRoom != null) if(x == activeRoom.x && y == activeRoom.y) batch.draw(here, cx, cy);
+					if(activeRoom != null) if(map.get(x, y).isActive()) batch.draw(here, cx, cy);
 				}
 				
 				

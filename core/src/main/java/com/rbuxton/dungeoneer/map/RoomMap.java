@@ -29,11 +29,11 @@ public class RoomMap {
 		}
 		
 		//open doors
-		if(d){
+		if(u){
 			tMap[0][(Constants.ROOM_WIDTH/2)] = new Tile(Constants.TILE_TYPE_UP);
 			tMap[0][(Constants.ROOM_WIDTH/2) + 1] = new Tile(Constants.TILE_TYPE_UP);
 		}
-		if(u){
+		if(d){
 			tMap[Constants.ROOM_HEIGHT - 1][(Constants.ROOM_WIDTH/2)] = new Tile(Constants.TILE_TYPE_DOWN);
 			tMap[Constants.ROOM_HEIGHT - 1][(Constants.ROOM_WIDTH/2) + 1] = new Tile(Constants.TILE_TYPE_DOWN);
 		}
@@ -45,10 +45,15 @@ public class RoomMap {
 			tMap[(Constants.ROOM_HEIGHT/2)][Constants.ROOM_WIDTH -1] = new Tile(Constants.TILE_TYPE_RIGHT);
 			tMap[(Constants.ROOM_HEIGHT/2) + 1][Constants.ROOM_WIDTH -1] = new Tile(Constants.TILE_TYPE_RIGHT);
 		}
+		
+		//debug keystone
+		tMap[0][0] = new Tile(-9999);
+		
+		tMap[0][2] = new Tile(-9999);
 	}
 	
 	public void render(SpriteBatch batch, int offsetX, int offsetY){
-		for(int y = 0; y < tMap.length; y++){
+		for(int y = tMap.length - 1; y > -1; y--){
 			for(int x = 0; x < tMap[y].length; x++){
 				if(x > -1 && x < tMap[0].length && y > -1 && y < tMap.length){
 					tMap[y][x].render(batch, (x * Constants.TILE_WIDTH) - (offsetX * Constants.TILE_WIDTH),
@@ -58,4 +63,6 @@ public class RoomMap {
 		}
 	}
 
+	public Tile getTile(int x, int y){ return tMap[y][x]; }
+	
 }
