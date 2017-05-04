@@ -1,2 +1,3 @@
 # dungeoneer
-Dungeoneer is an on going project by Ryan Buxton. It is a simple 2d dungeon crawler game with random map generation, with lots of influnce from delvergame.com. It is a work in progress, and has the eventual hopes of being a small indie game sold for free on multiple platforms.
+Dungeoneer is an on going project by Ryan Buxton with art done by Joseph Ahn. It is a simple 2d dungeon crawler game with random map generation, with lots of influnce from delvergame.com. It is a work in progress, and has the eventual hopes of being a small indie game sold for free on multiple platforms.
+ The main idea is that you spawn into a dungeon randomly created around you. As you work your way through the dungeon, you make it closer to the boss room. Apon defeating the boss, the player can head a layer down deeper into the dungeon, where the game generates a new map with differing tiles, enemies, and items to keep game play fun.
