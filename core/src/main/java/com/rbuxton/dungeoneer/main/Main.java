@@ -32,7 +32,7 @@ public class Main extends Game {
 		cam.position.set(cam.viewportWidth/2.0f, cam.viewportHeight/2.0f, 0f);
     	
         batch = new SpriteBatch();
-        setScreen(new GameScreen(this));
+        setScreen(new GameScreen(this)); //actual way we want to do this
     }
 
     @Override

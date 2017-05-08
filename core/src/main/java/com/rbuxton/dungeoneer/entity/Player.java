@@ -8,47 +8,44 @@ import com.badlogic.gdx.math.Vector2;
 import com.rbuxton.dungeoneer.map.RoomMap;
 import com.rbuxton.dungeoneer.misc.Constants;
 
-public class Player {
+public class Player implements Entity{
 	private RoomMap rm;
 	private Texture img;
 	private Vector2 pos;
 	private int xOff, yOff;
+	private int moveSpeed = 8;
 	
 	public Player(RoomMap r, int x, int y){
 		rm = r;
-		pos = new Vector2(x,y);
+		pos = new Vector2(x * Constants.TILE_WIDTH, y * Constants.TILE_HEIGHT);
 		img = new Texture("entity/play_test.png");
 		xOff = 4;
 		yOff = 3;
 	}
 	
-	public void render(SpriteBatch batch){
-		if(Gdx.input.isKeyJustPressed(Keys.D) && (pos.x + xOff + 1) < Constants.ROOM_WIDTH){
-			if(rm.getTile((int)pos.x + 1 + xOff, (int)pos.y + yOff).getType() != Constants.TILE_TYPE_WALL){
-				if(xOff == 5)pos.x++;
-				xOff = 5;
+	public void render(SpriteBatch b){
+		if(Gdx.input.isKeyPressed(Keys.W)){
+			if(rm.getTile((int)((pos.x) / Constants.TILE_WIDTH), (int)((pos.y + moveSpeed) / Constants.TILE_HEIGHT)).getType() != Constants.TILE_TYPE_WALL){
+				pos.y += moveSpeed;
 			}
 		}
-		if(Gdx.input.isKeyJustPressed(Keys.A) && (pos.x + xOff - 1) > -1){
-			if(rm.getTile((int)pos.x - 1 + xOff, (int)pos.y + yOff).getType() != Constants.TILE_TYPE_WALL){
-				if(xOff == 4) pos.x--;
-				xOff = 4;
+		if(Gdx.input.isKeyPressed(Keys.S)){
+			if(rm.getTile((int)((pos.x) / Constants.TILE_WIDTH), (int)((pos.y - moveSpeed) / Constants.TILE_HEIGHT)).getType() != Constants.TILE_TYPE_WALL){
+				pos.y -= moveSpeed;
 			}
 		}
-		if(Gdx.input.isKeyJustPressed(Keys.W)  && (pos.y + yOff + 1) < Constants.ROOM_HEIGHT){
-			if(rm.getTile((int)pos.x + xOff, (int)pos.y + yOff + 1).getType() != Constants.TILE_TYPE_WALL){
-				if(yOff == 3) pos.y++;
-				yOff = 3;
+		if(Gdx.input.isKeyPressed(Keys.A)){
+			if(rm.getTile((int)((pos.x - moveSpeed) / Constants.TILE_WIDTH), (int)((pos.y) / Constants.TILE_HEIGHT)).getType() != Constants.TILE_TYPE_WALL){
+				pos.x -= moveSpeed;
 			}
 		}
-		if(Gdx.input.isKeyJustPressed(Keys.S) && (pos.y + yOff - 1) > -1){
-			if(rm.getTile((int)pos.x + xOff, (int)pos.y + yOff - 1).getType() != Constants.TILE_TYPE_WALL){
-				if(yOff == 2) pos.y--;
-				yOff = 2;
+		if(Gdx.input.isKeyPressed(Keys.D)){
+			if(rm.getTile((int)((pos.x + moveSpeed) / Constants.TILE_WIDTH), (int)((pos.y) / Constants.TILE_HEIGHT)).getType() != Constants.TILE_TYPE_WALL){
+				pos.x += moveSpeed;
 			}
 		}
 		
-		batch.draw(img, (xOff * Constants.TILE_WIDTH), (yOff * Constants.TILE_HEIGHT));
+		b.draw(img, Constants.SCREEN_WIDTH/2 - img.getWidth()/2, Constants.SCREEN_HEIGHT/2 - img.getHeight()/2);
 		
 	}
 

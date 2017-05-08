@@ -1,13 +1,21 @@
 package com.rbuxton.dungeoneer.map;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.rbuxton.dungeoneer.entity.Entity;
 import com.rbuxton.dungeoneer.misc.Constants;
 
 public class RoomMap {
 	private Tile[][] tMap;
+	private ArrayList<Entity> entities;
+	private Random gen;
 	
 	public RoomMap(){
+		gen = new Random();
 		tMap = new Tile[Constants.ROOM_HEIGHT][Constants.ROOM_WIDTH];
+		entities = new ArrayList<Entity>();
 	}
 	
 	public void generate(boolean u, boolean d, boolean l, boolean r){
@@ -46,18 +54,18 @@ public class RoomMap {
 			tMap[(Constants.ROOM_HEIGHT/2) + 1][Constants.ROOM_WIDTH -1] = new Tile(Constants.TILE_TYPE_RIGHT);
 		}
 		
-		//debug keystone
+		//debug keystones
 		tMap[0][0] = new Tile(-9999);
 		
-		tMap[0][2] = new Tile(-9999);
+		tMap[2][2] = new Tile(-9999);
 	}
 	
 	public void render(SpriteBatch batch, int offsetX, int offsetY){
 		for(int y = tMap.length - 1; y > -1; y--){
 			for(int x = 0; x < tMap[y].length; x++){
 				if(x > -1 && x < tMap[0].length && y > -1 && y < tMap.length){
-					tMap[y][x].render(batch, (x * Constants.TILE_WIDTH) - (offsetX * Constants.TILE_WIDTH),
-							(y * Constants.TILE_HEIGHT) - (offsetY * Constants.TILE_HEIGHT));
+					tMap[y][x].render(batch, (x * Constants.TILE_WIDTH) - offsetX,
+							(y * Constants.TILE_HEIGHT) - offsetY);
 				}
 			}
 		}
